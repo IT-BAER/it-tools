@@ -24,22 +24,15 @@ function onUpdateFavoriteTools() {
 <template>
   <div class="pt-50px">
     <div class="grid-wrapper">
-      <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="grid grid-cols-1 gap-24px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
         <ColoredCard v-if="config.showBanner" :title="$t('home.follow.title')" :icon="IconHeart">
           {{ $t('home.follow.p1') }}
           <a
-            href="https://github.com/CorentinTh/it-tools"
+            href="https://github.com/IT-BAER/it-tools"
             rel="noopener"
             target="_blank"
             :aria-label="$t('home.follow.githubRepository')"
-          >GitHub</a>
-          {{ $t('home.follow.p2') }}
-          <a
-            href="https://x.com/ittoolsdottech"
-            rel="noopener"
-            target="_blank"
-            :aria-label="$t('home.follow.twitterXAccount')"
-          >X</a>.
+          >GitHub</a>.
           {{ $t('home.follow.thankYou') }}
           <n-icon :component="IconHeart" />
         </ColoredCard>
@@ -55,7 +48,7 @@ function onUpdateFavoriteTools() {
           </h3>
           <Draggable
             :list="favoriteTools"
-            class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
+            class="grid grid-cols-1 gap-24px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
             ghost-class="ghost-favorites-draggable"
             item-key="name"
             @end="onUpdateFavoriteTools"
@@ -71,7 +64,7 @@ function onUpdateFavoriteTools() {
         <h3 class="mb-5px mt-25px text-neutral-400 font-500">
           {{ t('home.categories.newestTools') }}
         </h3>
-        <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-24px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
           <ToolCard v-for="tool in toolStore.newTools" :key="tool.name" :tool="tool" />
         </div>
       </div>
@@ -79,7 +72,7 @@ function onUpdateFavoriteTools() {
       <h3 class="mb-5px mt-25px text-neutral-400 font-500">
         {{ $t('home.categories.allTools') }}
       </h3>
-      <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="grid grid-cols-1 gap-24px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
         <ToolCard v-for="tool in toolStore.tools" :key="tool.name" :tool="tool" />
       </div>
     </div>

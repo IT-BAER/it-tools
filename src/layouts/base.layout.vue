@@ -5,7 +5,6 @@ import { RouterLink } from 'vue-router';
 import { Heart, Home2, Menu2 } from '@vicons/tabler';
 
 import { storeToRefs } from 'pinia';
-import HeroGradient from '../assets/hero-gradient.svg?component';
 import MenuLayout from '../components/MenuLayout.vue';
 import NavbarButtons from '../components/NavbarButtons.vue';
 import { useStyleStore } from '@/stores/style.store';
@@ -36,7 +35,23 @@ const tools = computed<ToolCategory[]>(() => [
   <MenuLayout class="menu-layout" :class="{ isSmallScreen: styleStore.isSmallScreen }">
     <template #sider>
       <RouterLink to="/" class="hero-wrapper">
-        <HeroGradient class="gradient" />
+        <svg class="gradient" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="header-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" :stop-color="themeVars.primaryColor" :stop-opacity="0.15" />
+              <stop offset="100%" :stop-color="themeVars.primaryColor" :stop-opacity="0.02" />
+            </linearGradient>
+            <filter id="header-shadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="rgba(0,0,0,0.2)" />
+            </filter>
+          </defs>
+          <g filter="url(#header-shadow)">
+             <!-- Opaque Base Layer -->
+            <path :fill="themeVars.cardColor" d="M0,0L1440,0L1440,220C1250,280 1000,180 0,260Z" />
+             <!-- Tint/Gradient Layer -->
+            <path fill="url(#header-gradient)" d="M0,0L1440,0L1440,220C1250,280 1000,180 0,260Z" />
+          </g>
+        </svg>
         <div class="text-wrapper">
           <div class="title">
             IT - TOOLS
@@ -63,7 +78,7 @@ const tools = computed<ToolCategory[]>(() => [
           <div>
             IT-Tools
 
-            <c-link target="_blank" rel="noopener" :href="`https://github.com/CorentinTh/it-tools/tree/v${version}`">
+            <c-link target="_blank" rel="noopener" :href="`https://github.com/IT-BAER/it-tools/tree/v${version}`">
               v{{ version }}
             </c-link>
 
@@ -73,7 +88,7 @@ const tools = computed<ToolCategory[]>(() => [
                 target="_blank"
                 rel="noopener"
                 type="primary"
-                :href="`https://github.com/CorentinTh/it-tools/tree/${commitSha}`"
+                :href="`https://github.com/IT-BAER/it-tools/tree/${commitSha}`"
               >
                 {{ commitSha }}
               </c-link>
@@ -106,9 +121,9 @@ const tools = computed<ToolCategory[]>(() => [
           </c-button>
         </c-tooltip>
 
-        <c-tooltip :tooltip="$t('home.uiLib')" position="bottom">
-          <c-button v-if="config.app.env === 'development'" to="/c-lib" circle variant="text" :aria-label="$t('home.uiLib')">
-            <icon-mdi:brush-variant text-20px />
+        <c-tooltip :tooltip="$t('home.nav.themes')" position="bottom">
+          <c-button to="/settings/themes" circle variant="text" :aria-label="$t('home.nav.themes')">
+             <icon-mdi:palette text-25px />
           </c-button>
         </c-tooltip>
 
@@ -173,7 +188,7 @@ const tools = computed<ToolCategory[]>(() => [
 }
 
 .sider-content {
-  padding-top: 160px;
+  padding-top: 280px;
   padding-bottom: 200px;
 }
 
@@ -182,11 +197,19 @@ const tools = computed<ToolCategory[]>(() => [
   display: block;
   left: 0;
   width: 100%;
+  height: 280px;
   z-index: 10;
-  overflow: hidden;
+  overflow: visible; 
+  background-color: transparent;
+  
+  /* Pointer events: allow clicking through the empty wave parts? 
+     Ideally strict click-through on transparent parts requires mask or SVG pointer-events. 
+     For now, the RouterLink covers the block. */
 
   .gradient {
-    margin-top: -65px;
+    height: 100%;
+    width: 100%;
+    /* Gradient is now handled inside SVG */
   }
 
   .text-wrapper {
@@ -194,8 +217,9 @@ const tools = computed<ToolCategory[]>(() => [
     left: 0;
     width: 100%;
     text-align: center;
-    top: 16px;
-    color: #fff;
+    top: 40px;
+    z-index: 20;
+    color: v-bind('themeVars.textColor1');
 
     .title {
       font-size: 25px;

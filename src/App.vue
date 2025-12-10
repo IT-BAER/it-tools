@@ -9,8 +9,8 @@ const route = useRoute();
 const layout = computed(() => route?.meta?.layout ?? layouts.base);
 const styleStore = useStyleStore();
 
-const theme = computed(() => (styleStore.isDarkTheme ? darkTheme : null));
-const themeOverrides = computed(() => (styleStore.isDarkTheme ? darkThemeOverrides : lightThemeOverrides));
+const theme = computed(() => (styleStore.currentTheme.base === 'dark' ? darkTheme : null));
+const themeOverrides = computed(() => styleStore.currentTheme.overrides);
 
 const { locale } = useI18n();
 
